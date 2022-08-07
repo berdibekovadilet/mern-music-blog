@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 // Register user
 export const register = async (req, res) => {
@@ -51,8 +52,15 @@ export const login = async (req, res) => {
       return res.json({ message: "Неверный пароль" });
     }
 
-    
+    const token = jwt.sign(
+      {
+        id: user._id,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "30d" }
+    );
 
+    res.json({ token, user, message: "Вы вошли в систему" });
   } catch (error) {
     res.json({ message: "Ошибка при авторизаций." });
   }
@@ -61,5 +69,27 @@ export const login = async (req, res) => {
 // Get Me
 export const getMe = async (req, res) => {
   try {
-  } catch (error) {}
+    const user = await User.findById(req.userId);
+
+    if (!user) {
+      res.json({
+        message: "Такой пользователь не существует",
+      });
+    }
+
+    const token = jwt.sign(
+      {
+        id: user._id,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "30d" }
+    );
+
+    res.json({
+      user,
+      token,
+    });
+  } catch (error) {
+    res.json({ message: "Нет доступа" });
+  }
 };
