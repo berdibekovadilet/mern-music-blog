@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../redux/features/auth/authSlice";
-import { useEffect } from "react";
+import { checkIsAuth, registerUser } from "../redux/features/auth/authSlice";
 
 const RegisterPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { status } = useSelector((state) => state.auth);
+  const isAuth = useSelector(checkIsAuth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (status) {
-      toast(status);
-    }
-  }, [status]);
+    if (status) toast(status);
+    if (isAuth) navigate("/");
+  }, [status, isAuth, navigate]);
 
   const handleSubmit = () => {
     try {
@@ -26,6 +26,7 @@ const RegisterPage = () => {
       console.log(error);
     }
   };
+
   return (
     <form
       onSubmit={(e) => e.preventDefault()}

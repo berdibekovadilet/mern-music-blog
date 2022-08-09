@@ -36,7 +36,7 @@ export const register = async (req, res) => {
     res.json({
       newUser,
       token,
-      message: "Регистрация прошла успешно.",
+      message: "Регистрация прошла успешно",
     });
   } catch (error) {
     res.json({ message: "Ошибка при созданий пользователя" });
@@ -69,9 +69,9 @@ export const login = async (req, res) => {
       { expiresIn: "30d" }
     );
 
-    res.json({ token, user, message: "Вы вошли в систему" });
+    res.json({ token, user, message: "Вы вошли на сайт" });
   } catch (error) {
-    res.json({ message: "Ошибка при авторизаций." });
+    res.json({ message: "Ошибка при авторизаций" });
   }
 };
 
