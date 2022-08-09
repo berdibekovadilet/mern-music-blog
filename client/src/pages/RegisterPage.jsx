@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../redux/features/auth/authSlice";
+import { useEffect } from "react";
 
 const RegisterPage = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const { status } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (status) {
+      toast(status);
+    }
+  }, [status]);
+
+  const handleSubmit = () => {
+    try {
+      dispatch(registerUser({ username, password }));
+      setUsername("");
+      setPassword("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
@@ -12,6 +36,8 @@ const RegisterPage = () => {
         Имя пользователя:
         <input
           type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           placeholder="Почта или телефон"
           className="mt-1 text-black w-full rounded-lg bg-gray-200 border py-3 px-3 text-xs outline-none placeholder:text-gray-700 mb-4"
         />
@@ -20,6 +46,8 @@ const RegisterPage = () => {
         Пароль:
         <input
           type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           placeholder="Пароль"
           className="mt-1 text-black w-full rounded-lg bg-gray-200 border py-3 px-3 text-xs outline-none placeholder:text-gray-700"
         />
@@ -27,15 +55,13 @@ const RegisterPage = () => {
       <div className="flex gap-8 justify-center mt-10">
         <button
           type="submit"
+          onClick={handleSubmit}
           className="flex justify-center items-center text-xs text-white bg-cyan-500 rounded-lg py-3 px-6 hover:bg-cyan-600"
         >
           Подтвердить
         </button>
-        <Link
-          to="/login"
-          className="flex justify-center items-center text-xs"
-        >
-         Уже зарегистрированы?
+        <Link to="/login" className="flex justify-center items-center text-xs">
+          Уже зарегистрированы?
         </Link>
       </div>
     </form>
