@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <div className="flex py-4 justify-between items-center">
-      <span className="flex justify-center items-center w-32 h-8 text-sm text-white rounded-md bg-black font-bold">
+      <span className="flex justify-center items-center w-32 h-8 text-sm text-white rounded-md bg-black font-bold hover:bg-gray-700">
         <NavLink to="/">MUSIC FLOW</NavLink>
       </span>
       {isAuth && (
@@ -26,7 +26,7 @@ const Navbar = () => {
           </li>
           <li>
             <NavLink
-              to="posts"
+              to="/posts"
               className="text-sx text-gray-500 hover:text-cyan-600 transition-all"
               style={({ isActive }) => (isActive ? activeStyles : undefined)}
             >
@@ -35,7 +35,7 @@ const Navbar = () => {
           </li>
           <li>
             <NavLink
-              to="new"
+              to="/new"
               className="text-sx text-gray-500 hover:text-cyan-600 transition-all"
               style={({ isActive }) => (isActive ? activeStyles : undefined)}
             >
@@ -46,7 +46,7 @@ const Navbar = () => {
       )}
 
       <div className="flex justify-center items-center px-6 py-2 text-sm text-white rounded-md bg-cyan-500 hover:bg-cyan-600 font-bold transition-all">
-        {isAuth ? <button>Выйти</button> : <Link to="login">Войти</Link>}
+        {isAuth ? <button>Выйти</button> : <Link to="/login">Войти</Link>}
       </div>
     </div>
   );
