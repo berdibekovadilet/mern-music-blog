@@ -51,3 +51,22 @@ export const createPost = async (req, res) => {
     });
   }
 };
+
+// Get All Posts
+
+export const getAll = async (req, res) => {
+  try {
+    const posts = await Post.find().sort("-createdAt");
+    const popularPosts = await Post.find().limit(5).sort("-views");
+
+    if (!posts) {
+      return res.json({ message: "Постов нет" });
+    }
+
+    res.json({ posts, popularPosts });
+  } catch (error) {
+    return res.json({
+      message: "Ошибка при получений постов",
+    });
+  }
+};
