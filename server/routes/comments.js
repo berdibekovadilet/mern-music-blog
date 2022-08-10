@@ -7,4 +7,5 @@ import { createComment } from "../controllers/comments.js";
 // http://localhost:8000/api/comments/:id
 router.post("/:id", checkAuth, createComment);
 
+
 export default router;
