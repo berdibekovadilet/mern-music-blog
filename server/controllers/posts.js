@@ -64,6 +64,7 @@ export const getAll = async (req, res) => {
     }
 
     res.json({ posts, popularPosts });
+    
   } catch (error) {
     return res.json({
       message: "Ошибка при получений постов",
