@@ -9,7 +9,7 @@ const MainPage = () => {
   const { posts, popularPosts } = useSelector((state) => state.post);
 
   useEffect(() => {
-    dispatch(getAllPosts);
+    dispatch(getAllPosts());
   }, [dispatch]);
 
   if (!posts.length) {
@@ -21,12 +21,12 @@ const MainPage = () => {
   return (
     <div className="max-w-[900px] mx-auto py-10">
       <div className="flex justify-between gap-8">
-        <div className="flex flex-col gap-10 basis-4/5">
+        <div className="flex flex-col gap-10 basis-5/6">
           {posts?.map((post, idx) => (
             <PostItem key={idx} post={post} />
           ))}
         </div>
-        <div className="basis-1/5">
+        <div className="basis-2/6">
           <div className="text-xs uppercase">Популярное:</div>
           {popularPosts?.map((post, idx) => (
             <PopularPosts key={idx} post={post} />

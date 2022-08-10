@@ -64,10 +64,21 @@ export const getAll = async (req, res) => {
     }
 
     res.json({ posts, popularPosts });
-    
   } catch (error) {
     return res.json({
       message: "Ошибка при получений постов",
     });
+  }
+};
+
+// Get Post By Id
+export const getById = async (req, res) => {
+  try {
+    const post = await Post.findByIdAndUpdate(req.params.id, {
+      $inc: { views: 1 },
+    });
+    res.json(post);
+  } catch (error) {
+    res.json({ message: "Ошибка при получений поста" });
   }
 };
