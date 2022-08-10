@@ -1,8 +1,10 @@
-# mern-music-blog
-Fullstack приложение, блог о музыке. Mongodb/Express.js/React.js/Node.js
 
 # Music Blog MERN
-Fullstack приложение. Mongodb/Express.js/React.js/Node.js
+Fullstack App. 
+# STACK
+Express.js, mongoose, jsonwebtoken, dotenv, cors, bcryptjs
+React.js, redux toolkit, react-router, react-moment, react-toastify, axios
+
 
 # Live http://helpdesk.kg/
 
