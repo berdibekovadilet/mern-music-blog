@@ -1,13 +1,35 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { AiFillEye, AiOutlineMessage } from "react-icons/ai";
-import Moment from "react-moment";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "../utils/axios";
-import { Link, useParams } from "react-router-dom";
+import { removePost } from "../redux/features/post/postSlice";
+
+import {
+  AiFillEye,
+  AiOutlineMessage,
+  AiTwotoneEdit,
+  AiFillDelete,
+} from "react-icons/ai";
+import Moment from "react-moment";
+import { toast } from "react-toastify";
 
 const PostPage = () => {
   const [post, setPost] = useState(null);
+  const { user } = useSelector((state) => state.auth)
 
+  const dispatch = useDispatch();
   const params = useParams();
+  const navigate = useNavigate();
+
+  const removePostHandler = () => {
+    try {
+      dispatch(removePost(params.id));
+      toast("Пост был удален");
+      navigate("/posts");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const fetchPost = useCallback(async () => {
     const { data } = await axios.get(`/posts/${params.id}`);
@@ -66,6 +88,21 @@ const PostPage = () => {
                 <AiOutlineMessage /> <span>{post.comments?.length || 0} </span>
               </button>
             </div>
+            {user?._id === post.author && (
+              <div className="flex gap-3 mt-4">
+                <button className="flex items-center justify-center gap-2 opacity-50">
+                  <Link to={`/${params.id}/edit`}>
+                    <AiTwotoneEdit />
+                  </Link>
+                </button>
+                <button
+                  onClick={removePostHandler}
+                  className="flex items-center justify-center gap-2 opacity-50"
+                >
+                  <AiFillDelete />
+                </button>
+              </div>
+            )}
           </div>
         </div>
         <div className="w-1/3 p-8 bg-gray-700 flex flex-col gap-2 rounded-sm">
