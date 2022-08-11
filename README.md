@@ -2,11 +2,12 @@
 # Music Blog MERN
 Fullstack App. 
 # STACK
-Express.js, mongoose, jsonwebtoken, dotenv, cors, bcryptjs
-React.js, redux toolkit, react-router, react-moment, react-toastify, axios
+## Back-end: Express.js, mongoose, jsonwebtoken, dotenv, cors, bcryptjs
+
+## Front-end: React.js, redux toolkit, react-router, react-moment, react-toastify, axios
 
 
-# Live http://helpdesk.kg/
+# Live https://mern-music-blog.netlify.app/
 
 
 Авторизация
